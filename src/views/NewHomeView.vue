@@ -1269,7 +1269,7 @@ export default {
 body {
   margin: 0px;
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: hidden; */
   scroll-behavior: none;
 }
 
