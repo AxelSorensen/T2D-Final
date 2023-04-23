@@ -689,24 +689,6 @@ a svg {
   font-weight: bold;
 }
 
-@media only screen and (max-width: 1124px) {
-  .statistics {
-    grid-template-columns: none;
-  }
-
-  .response {
-    position: relative;
-    grid-column: unset;
-    grid-row: 2;
-    width: 300px;
-    left: calc(50% - 150px);
-  }
-
-  .wrapper {
-    grid-column: unset;
-    grid-row: 1;
-  }
-}
 
 
 @media only screen and (max-width: 600px) {
