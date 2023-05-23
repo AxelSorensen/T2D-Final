@@ -2,9 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
-import VueTour from 'vue-tour'
-
-
+import VueTour from 'v3-tour'
+require('v3-tour/dist/vue-tour.css')
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
@@ -31,6 +30,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 import './registerServiceWorker'
 import router from './router'
@@ -60,7 +60,8 @@ library.add(faHistory)
 library.add(faMagnifyingGlass)
 library.add(faEye)
 library.add(faEyeSlash)
-createApp(App).use(router).use(router).use(require('vue-cookies')).use(VueChartkick).component('font-awesome-icon', FontAwesomeIcon).directive('focus', {
+library.add(faQuestionCircle)
+createApp(App).use(router).use(router).use(require('vue-cookies')).use(VueChartkick).use(VueTour).component('font-awesome-icon', FontAwesomeIcon).directive('focus', {
   mounted: function (el, binding) {
     if(binding.value != 'endTime') {
       el.focus()

@@ -99,7 +99,7 @@ export default {
          * Checks if the length is above 0, meaning there is a predefined dose
          */
         toShow(){
-            if(this.predefinedDose.length > 0){
+            if(this.predefinedDose?.length > 0){
                 return true;
             }else{
                 return false;

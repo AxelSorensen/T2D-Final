@@ -1,20 +1,22 @@
 <template>
+
+   
   <button class="debug" @click="debugContent">Debug</button>
   <!-- Input parameters (left side)-->
   <div id="left-container" :class="{ 'hide': !maximized, 'expanded': maximized }">
     <!-- Tabs basic and advanced in the top of left side -->
 
     <div id="tabs">
-      <div id="basic_tab" :class="{ selected_tab: tab == 0 }" @click="handleTabs(0)">Basic</div>
-      <div id="advanced_tab" :class="{ selected_tab: tab == 1 }" @click="handleTabs(1)">Advanced</div>
-      <div id="summary_tab" @click="handleTabs(2)" :class="{ selected_tab: tab == 2 }">Summary</div>
+      <div id="basic_tab" :class="{ selected_tab: tab == 0 }" @click="handleTabs(0)" >Basic</div>
+      <div id="advanced_tab" :class="{ selected_tab: tab == 1 }" @click="handleTabs(1)" data-v-step="advanced">Advanced</div>
+      <div id="summary_tab" @click="handleTabs(2)" :class="{ selected_tab: tab == 2 }" data-v-step="summary">Summary</div>
     </div>
 
     <!-- Headers and dropdowns for parameters -->
-    <CollapseSide id="left-params">
+    <CollapseSide id="left-params" data-v-step="params">
       <div v-if="tab == 0">
         <div :key="type" v-for="type in getTypes">
-          <ParameterHeader :text="type" :displayIcon=true @iconClick="openPopup" />
+          <ParameterHeader :text="type" :displayIcon=true @iconClick="openPopup" :data-v-step="type" />
 
           <Param @click.native="this.showAll = true" :key="par.Name" v-for="(par, index) in getParametersInType(type)"
             @add-param="addParam" @deleteParam="deleteParam" @updateValue="updateValueParam" @updateRepeat="updateRepeat"
@@ -107,11 +109,11 @@
 
     </CollapseSide>
     <!-- Patient tabs in bottom of left side -->
-    <div id="patients">
+    <div id="patients" data-v-step="patients">
       <div id="patient0" @click="tunedPatient" class="tooltip" :class="{ 'selected_patient': isActivePatient('') }">Default
       </div>
-      <div id="patient1" @click="tunedPatient" class="tooltip"
-    :class="{ 'selected_patient': isActivePatient('Patient 1') }">Patient 1</div>
+      <div id="patient1" @click="(e) => {tunedPatient(e);}" class="tooltip"
+    :class="{ 'selected_patient': isActivePatient('Patient 1') }" >Patient 1</div>
       <div id="patient2" @click="tunedPatient" class="tooltip"
     :class="{ 'selected_patient': isActivePatient('Patient 2') }">Patient 2</div>
       <div id="patient3" @click="tunedPatient" class="tooltip"
@@ -134,7 +136,7 @@
       :showGlycemia="showGlycemia" :GlycemiaInterval="GlycemiaInterval" :axisTitleChange="axisTitleChange"
       :AxisTitle="AxisTitle" :graphScroll="graphScroll" :selected_solver="simPar.simSettings.selected_solver"
       :solverList="simPar.simSettings.solverList" :activePatient="ActivePatient" :newSimRequired="newSimRequired"
-      :compare="compare" :compareTo="compareTo" :parameters="getParameters" />
+      :compare="compare" :compareTo="compareTo" :parameters="getParameters"/>
   </div>
   <div v-show="savePopup" class="save-popup popup" @click="closePopupOutside">
     <div class="content">
@@ -203,6 +205,8 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import { useShepherd } from 'vue-shepherd'
 import axios from "axios"; //ajax
 import Graph from '../components/Graph.vue'
 import Param from '../components/Param.vue'
@@ -250,6 +254,7 @@ export default {
   },
   data() {
     return {
+      
       autoSim: false,
       selectedSummary: 'None',
       treatment: ['Metformin', 'GLP', 'LAI', 'FAI'],
@@ -269,6 +274,7 @@ export default {
       downloadPopup: false,
       InfoPopup: false,
       EULAPopup: true,
+      Tutorial: true,
       newSimRequired: false,
       simRunning: false,
       simProg: false,
@@ -339,6 +345,7 @@ export default {
     }
   },
   methods: {
+
     collapse() {
       this.showAll = false;
       console.log(this.showAll);
@@ -1192,6 +1199,8 @@ export default {
             // has failed      
           })
       }
+
+     
     }
 
 
@@ -1254,6 +1263,7 @@ export default {
     window.addEventListener("resize", this.resizeEvent);
   },
   mounted() {
+
     // Forces the graph to be drawn
     this.graphInfo.datasets = [];
     this.updateHidden()
@@ -1269,7 +1279,7 @@ export default {
 body {
   margin: 0px;
   box-sizing: border-box;
-  /* overflow: hidden; */
+  overflow: hidden;
   scroll-behavior: none;
 }
 
@@ -1792,6 +1802,7 @@ svg:focus {
 .EULA-popup .EULAbtn {
   width: 200px;
   margin-right: 20px;
+
 }
 
 .close:hover,

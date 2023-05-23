@@ -9,9 +9,9 @@
             <span v-if="option == 'Heart Beat Increase [BPM]'" class="tooltiptext" style="right: 24px; top: 100px">
             Heart Beat increase is the change in heart beat rate from resting heart beat defined as parameter HRb.<span>By default resting heart rate is 80 BPM</span> </span>
         </p>
-        <IconButton @click="$emit('add-param')" color="hsl(120, 100%, 30%)" :fontSize=20 />
+        <IconButton @click="$emit('add-param')" color="hsl(120, 100%, 30%)" :fontSize=20 :data-v-step="paramType == 'Physical Activity' ? 'physical-activity' : null"/>
     </div>
-    <div class="option" :key="par.id" v-for="par in sortedParam">
+    <div class="option" :key="par.id" v-for="par in param">
         <FourOptionItem
             @delete-param="$emit('delete-param', par.id)"
             @updateValue="updateValue"
@@ -67,9 +67,6 @@ export default {
         return {};
     },
     computed:{
-      sortedParam() {
-          return this.param.sort((a,b)=>a.time - b.time)
-        },
         getUnitName(){
             var UnitName = "";
             var placeholder = this.option.split('[');

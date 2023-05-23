@@ -5,15 +5,15 @@
         :Time='param.time'
         :repeat="repeat"/>
     <!-- <input @change="updateValue" type="number" name='number' placeholder="0" :value='param.value' :list="paramType"> -->
-    <CustomInput v-if="param.type == 'Daily GLP-1'"
+    <CustomInput v-if="repeat == 'daily'"
         @updateValue="emitValue"
         :id="paramType" 
-        :predefinedDose="predefinedDose[0]['Daily GLP-1']"
+        :predefinedDose="predefinedDose[0]?.['Daily GLP-1']"
         :param="param" />
-    <CustomInput v-else-if="param.type == 'Weekly GLP-1'"
+    <CustomInput v-else-if="repeat == 'weekly'"
         @updateValue="emitValue"
         :id="paramType" 
-        :predefinedDose="predefinedDose[0]['Weekly GLP-1']"
+        :predefinedDose="predefinedDose[0]?.['Weekly GLP-1']"
         :param="param" />
     <CustomInput v-else 
         @updateValue="emitValue"

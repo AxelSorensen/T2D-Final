@@ -1,6 +1,6 @@
 <template>
 <div class="Param">
-    <div  @click="handleShowParam" :class="{'header': true, 'in-use' : inUse}">
+    <div  @click="handleShowParam" :class="{'header': true, 'in-use' : inUse}" :data-v-step="paramType">
         <p>{{paramType}}</p>
         <i :class='{ "rotate": showParam && showAll}'><font-awesome-icon class="icon" icon="chevron-down"/></i>
     </div>
@@ -129,6 +129,7 @@ export default{
     },
     emits: ['add-param', 'deleteParam', 'updateValue', 'updateRepeat','updateInsulin','showAll'],
     methods: {
+      
         handleShowParam() {
           this.showParam = !this.showParam;
         },

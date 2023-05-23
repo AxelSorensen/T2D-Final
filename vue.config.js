@@ -63,7 +63,7 @@ const obfuscatorOptions = {
 var WebpackObfuscator = require('webpack-obfuscator');
 
 module.exports = defineConfig({
-  publicPath: process.env.NODE_ENV === 'production' ? '/T2D-overflow/' : './',
+  publicPath: process.env.NODE_ENV === 'production' ? '/T2D/' : './',
   transpileDependencies: true,
   pwa: {
     workboxOptions: {

@@ -4,11 +4,11 @@
         -->
   <div v-if="showStates" class="click_away" @click="showStates = false"></div>
   <div class="states">
-    <TextIconButton @click="showStates = !showStates" id="plotting-options" icon="fa-chart-line">Plotting options
+    <TextIconButton @click="showStates = !showStates" id="plotting-options" icon="fa-chart-line" data-v-step="plotting-options">Plotting options
     </TextIconButton>
     <Collapse>
       <div :class="{ 'wrapper': true, 'wrapper-maximized': maximized }" v-if="showStates">
-        <div id="top-plotting">
+        <div id="top-plotting" data-v-step="states_menu">
           <div id="tabs">
             <div id="basic_tab" :class="{ selected_tab: !advanced_plotting }" @click="handleTabs(false)">Basic</div>
             <div id="advanced_tab" :class="{ selected_tab: advanced_plotting }" @click="handleTabs(true)">Advanced</div>

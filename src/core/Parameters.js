@@ -30,13 +30,13 @@ var Parameters = {
         Metformin: {time:60, value:500, type: '[mg]'},
         LAI: {time:60, value:10, type: '[U]'},
         FAI: {time:60, value:10, type: '[U]'},
-        GLP: {time:60, value:10, type:'[mg]'},
+        GLP: {time:60, value:0.5, type:'[mg]'},
         DPP: {time:0, value:0},
     },
     Types: ["External factors", "Treatment"],
     ParameterTypes: {
         Meals: ['Very high (100)', 'High (approximately 80)', 'Medium (approximately 60)', 'Low (approximately 40)', 'Very low (approximately 20)'],
-        GLP: ['Daily GLP-1','Weekly GLP-1'],
+        // GLP: ['Daily GLP-1','Weekly GLP-1'],
     },
     TypeNames: {
         Meals: 'Glycimic index',
@@ -97,6 +97,8 @@ var Parameters = {
         }else if(par.valType == 'type'){
             patient[par.type] = patient[par.type].map((item)=>item.id === par.id ? {...item, type: par.val}: item)
         }
+
+        
     },
     /**
      * Updates the repeat of the given parameter

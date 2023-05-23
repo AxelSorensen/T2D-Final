@@ -5,7 +5,7 @@
         :GlycemiaInterval="GlycemiaInterval" @simulate="$emit('simulate')" @cancelSim="$emit('cancelSim')"
         @updateSimTime="$emit('updateSimTime', $event)" @updateOde="$emit('updateOde', $event)" @zoomChange="zoomChange"
         @toggleVisible="$emit('toggleVisible')" @updateAdvancedSimPar="$emit('updateAdvancedSimPar', $event)"
-        @updateGlycemiaInterval="$emit('updateGlycemiaInterval', $event)" />
+        @updateGlycemiaInterval="$emit('updateGlycemiaInterval', $event)"/>
         
       <!--
         Subheader (States, patient watermark, maximize)
@@ -26,11 +26,11 @@
         <Chart ref="chartComponent" class="chart-graph" :chartData="graphData" :xMax="simPar.time * 1440"
           :simProg="simProg" :zoom="!simRunning" :showSecondAxis="showSecondAxis" :showGlycemia="showGlycemia"
           :GlycemiaInterval="GlycemiaInterval" :GH="displayStates.GH" :axisTitleChange="axisTitleChange"
-          :AxisTitle="AxisTitle" :graphScroll="graphScroll" />
+          :AxisTitle="AxisTitle" :graphScroll="graphScroll"/>
 
 
         <!-- TODO removed save graph pic icon -->
-        <IconButton class="downloadGraph" @click="DownloadChart" icon="fa-save" />
+        <IconButton class="downloadGraph" @click="DownloadChart" icon="fa-save" data-v-step="png"/>
       </div>
       <div id="subgraph">
         <div id="plot-against">
@@ -42,7 +42,7 @@
             </option>
           </select>
           <label> vs. </label>
-          <select name="compareTo" @change="changeCompare">
+          <select name="compareTo" @change="changeCompare" data-v-step="plot-against">
             <option>None</option>
             <option :key="item.name" v-for="item in getCompare(compare)">
               {{ item.name }}
@@ -70,7 +70,7 @@
         <div class="response">
           <div id="test">
             <h2>Save response</h2>
-            <div class="row">
+            <div class="row" data-v-step="save-response">
               <p>Save the current response as:</p><input @keydown.enter="saveNewResponse" ref="newResponseName"
                 type="text" placeholder="Response name" /><i @click="saveNewResponse"><font-awesome-icon class="icon"
                   icon="fa-solid fa-floppy-disk" /></i>
@@ -78,7 +78,7 @@
 
           </div>
           <div>
-            <h2>Import patient</h2>
+            <h2 data-v-step="upload-patients">Import patient</h2>
             <div class="row buttons">
               <TextIconButton @click="$emit('importFile')" icon="fa-upload">Upload</TextIconButton>
               <TextIconButton @click="$emit('exportFile')" icon="fa-download">Download</TextIconButton>
@@ -88,7 +88,7 @@
 
         </div>
         <div>
-          <h2>Response statistics</h2>
+          <h2 data-v-step="response-stats">Response statistics</h2>
           <div class="wrapper">
 
             <div class="stat">
@@ -106,7 +106,7 @@
                   icon="xmark" /></a>
             </div>
           </div>
-          <IconButton class="download" @click="$emit('DownloadResponse')" icon="fa-download" fontSize="20" />
+          <IconButton class="download" @click="$emit('DownloadResponse')" icon="fa-download" fontSize="20" data-v-step="save"/>
 
         </div>
 

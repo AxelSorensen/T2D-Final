@@ -7,7 +7,7 @@
         <p v-if="Types">{{typeName}}</p>
         <IconButton @click="$emit('add-param')" color="hsl(120, 100%, 30%)" :fontSize=20 />
     </div>
-    <div class="option" :class="getClass(par.type)" :key="par.id" v-for="par in sortedParam">
+    <div class="option" :class="getClass(par.type)" :key="par.id" v-for="par in param">
         <ThreeOptionItem 
             @delete-param="$emit('delete-param', par.id)"
             @updateValue="updateValue"
@@ -89,9 +89,6 @@ export default {
         }
     },
     computed:{
-        sortedParam() {
-          return this.param.sort((a,b)=>a.time - b.time)
-        },
         getUnitName(){
             var UnitName = "";
             var placeholder = this.option.split('[');

@@ -69,6 +69,7 @@ export default {
             par.name === "endTime" ? par.val < this.param.startTime ? this.$emit('updateValue', {id:this.param.id, valueType:'startTime', value:par.val}) : null : null
             
             this.$emit('updateValue', {id:this.param.id, valueType:par.name, value:par.val})
+            console.log(this.param.endTime)
         }
     },
 }

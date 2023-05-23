@@ -8,16 +8,16 @@
       <div id="left-settings">
         <TextIconButton v-if="simRunning" @click="$emit('cancelSim')" icon="fa-xmark" color="hsl(0, 100%, 50%)">Cancel
           Simulation</TextIconButton>
-        <TextIconButton v-else @click="$emit('simulate')" icon="fa-play" color="hsl(120, 100%, 30%)">Simulate
+        <TextIconButton v-else @click="$emit('simulate')" icon="fa-play" color="hsl(120, 100%, 30%)" data-v-step="sim">Simulate
         </TextIconButton>
         <label for="simTime">Simulation time:</label>
-        <input @change="updateSimTime" type="number" min="1" name="simTime" :value="simPar.time" />
+        <input @change="updateSimTime" type="number" min="1" name="simTime" :value="simPar.time" data-v-step="simtime"/>
         <label for="simTime" class="days">day(s)</label>
         <label v-if="simRunning" :v-show="this.simProg" :v-html="updateProg">{{ updateProg }}</label>
       </div>
       <div id="right-settings">
         <div id="zoom-settings">
-          <TextIconButton class="zoom-btn" @click="$emit('zoomChange', this.showNumDays)" icon="fa-magnifying-glass">Zoom
+          <TextIconButton class="zoom-btn" @click="$emit('zoomChange', this.showNumDays)" icon="fa-magnifying-glass" data-v-step="zoom">Zoom
           </TextIconButton>
           to last <input type="number" :value="showNumDays" @change="zoomDaysAdjust($event, 'number')" /> day(s)
         </div>
@@ -26,9 +26,9 @@
           information</TextIconButton>
         <TextIconButton v-else icon="xmark" :class="{ important_clicked: important_click }" color="hsl(0, 100%, 50%)"
           @click="toggleImportant()">Important information</TextIconButton>
-            <!-- 
+              <!-- 
    Dropdown for advanced sim settings
-  -->
+  -->    
         <div class="advancedSimPar">
           <IconButton @click="showAdvanced = !showAdvanced" icon="fa-sliders" />
           
@@ -180,6 +180,7 @@ import Collapse from './Transitions/Collapse.vue'
 import IconButton from './IconButton.vue';
 import TextIconButton from './TextIconButton.vue';
 import ImportantInfo from './ImportantInfo.vue';
+
 /**
  * The component used as a container for the chart and the other things related to displaying the graphs.
  */
@@ -201,6 +202,7 @@ export default {
   },
   data() {
     return {
+      tutorialPopup: false,
       showAdvanced: false,
       showNumDays: 3,
       lastShowNumDays: 3,
@@ -213,7 +215,6 @@ export default {
   },
   emits: ["simulate", "cancelSim", "updateSimTime", "updateOde", "zoomChange", "toggleVisible", "updateAdvancedSimPar", "updateGlycemiaInterval"],
   methods: {
-
     handleClickAway() {
       this.aau_click = false;
       this.important_click = false;
@@ -313,6 +314,10 @@ export default {
   background-color: rgba(172, 172, 172, 0.5) !important;
 }
 
+.tutorial-button {
+  margin: 16px;
+}
+
 
 .header {
   position: relative;
@@ -408,6 +413,23 @@ input[type=number] {
   position: absolute;
   top: 50px;
   right: 16px;
+  z-index: 10;
+  color: white;
+  padding: 6px;
+
+}
+
+#tutorial-dropdown {
+  
+  display: grid;
+  align-items: center;
+  background-color: rgb(34, 35, 78);
+  height: 200px;
+  width: 400px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50px;
+  right: 100px;
   z-index: 10;
   color: white;
   padding: 6px;

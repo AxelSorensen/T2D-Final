@@ -1,6 +1,6 @@
 <template>
   <Scatter ref="graph" :chart-options="chartOptions" :chart-data="chartData" :chart-id="chartId" :dataset-id-key="datasetIdKey"
-    :plugins="plugins" />
+    :plugins="plugins" data-v-step="graph"/>
 </template>
 
 <script>
